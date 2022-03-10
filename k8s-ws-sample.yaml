@@ -1,0 +1,39 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ws-sample
+spec:
+  type: LoadBalancer
+  selector:
+    app: ws-sample
+  ports:
+    - name: ws-sample
+      protocol: TCP
+      port: 8000
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ws-sample
+  labels:
+    app: ws-sample
+spec:
+  selector:
+    matchLabels:
+      app: ws-sample
+  template:
+    metadata:
+      labels:
+        app: ws-sample
+    spec:
+      containers:
+      - env:
+          - name: APPENV
+            value: "development"
+        name: ws-sample
+        image: ws-sample
+        ports:
+        - containerPort: 8000
+          name: ws-sample

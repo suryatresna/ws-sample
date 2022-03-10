@@ -1,0 +1,40 @@
+config:
+  target: "ws://localhost:8000/chat"
+  phases:
+    - duration: 1
+      arrivalRate: 10000
+      maxVusers: 20000
+  ws:
+    headers:
+      Connection: "Upgrade"
+      Pragma: "no-cache"
+      Cache-Control: "no-cache"
+      Upgrade: "websocket"
+      Sec-WebSocket-Version: 13
+scenarios:
+  - name: "test connect + send"
+    engine: "ws"
+    flow:
+      - think: 30
+      - loop:
+          - send: { "type": "SEND_MESG","data": { "message": "BONJOUR","channel_id": 2 } }
+          - think: 1
+          - send: { "type": "SEND_MESG","data": { "message": "HOLA","channel_id": 2 } }
+          - think: 1
+          - send: { "type": "SEND_MESG","data": { "message": "HALLO","channel_id": 2 } }
+          - think: 1
+          - send: { "type": "SEND_MESG","data": { "message": "GUTEN TAG","channel_id": 2 } }
+          - think: 1
+          - send: { "type": "SEND_MESG","data": { "message": "CIAO","channel_id": 2 } }
+          - think: 1
+          - send: { "type": "SEND_MESG","data": { "message": "AHN-YOUNG-HA-SE-YO","channel_id": 2 } }
+          - think: 1
+          - send: { "type": "SEND_MESG","data": { "message": "NAMASTE","channel_id": 2 } }
+          - think: 1
+          - send: { "type": "SEND_MESG","data": { "message": "SALAAM","channel_id": 2 } }
+          - think: 1
+          - send: { "type": "SEND_MESG","data": { "message": "ZDRAS-TVUY-TE","channel_id": 2 } }
+          - think: 1
+          - send: { "type": "SEND_MESG","data": { "message": "KONNICHIWA","channel_id": 2 } }
+          - think: 1
+        count: 10000
